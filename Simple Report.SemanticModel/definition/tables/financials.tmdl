@@ -1,0 +1,228 @@
+table financials
+	lineageTag: 6a2df866-8f16-4ac8-bba8-d61bfe401966
+
+	measure 'Total Unit Sold' = SUM(Financials[Units Sold])
+		formatString: #,0
+		lineageTag: b603f830-f9ac-4b04-beac-362fa65c29e6
+
+	measure 'Number of Countries' = DISTINCTCOUNT(Financials[Country])
+		formatString: 0
+		lineageTag: 38cb64b0-4070-483c-9562-db4bff456375
+
+	measure 'Total Sales' = sum(financials[ Sales])
+		formatString: #,0.00
+		lineageTag: 2b9ed3b4-c025-4e45-9cea-bd9e1f44ab63
+
+	measure 'Total profit' = SUM(financials[Profit])
+		formatString: #,0.00
+		lineageTag: 44c9e8f3-cb50-4b07-a8fd-3bd551b01d57
+
+	measure 'Total COGS' = SUM(financials[COGS])
+		lineageTag: 98fa8fd3-ce86-4d67-8f70-c08625ad9e5f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Segment
+		dataType: string
+		lineageTag: 7ecc32b2-0675-401f-b5ff-ef6c79f992c0
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: af95a985-9038-46c8-9f07-85b76fee45db
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 658c5441-6357-4713-8fd4-b92d24268b85
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Discount Band'
+		dataType: string
+		lineageTag: 25ac82d8-994d-4b4d-a290-2117de21c36f
+		summarizeBy: none
+		sourceColumn: Discount Band
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Units Sold'
+		dataType: int64
+		formatString: 0
+		lineageTag: 49b1e9cf-207f-4d13-a2b9-afc701ef221a
+		summarizeBy: sum
+		sourceColumn: Units Sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Manufacturing Price'
+		dataType: int64
+		formatString: 0
+		lineageTag: 16036dd9-3bc4-4181-b30d-a063e09c6f25
+		summarizeBy: sum
+		sourceColumn: Manufacturing Price
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sale Price'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3240a413-1ee4-46a6-a4e8-b399a131a538
+		summarizeBy: none
+		sourceColumn: Sale Price
+
+		annotation SummarizationSetBy = User
+
+	column 'Gross Sales'
+		dataType: double
+		lineageTag: d87a1ded-98db-43c6-9a7b-d7b97086d125
+		summarizeBy: sum
+		sourceColumn: Gross Sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Discounts
+		dataType: double
+		lineageTag: aa28cadb-9243-4f51-bc03-2467d29d143e
+		summarizeBy: sum
+		sourceColumn: Discounts
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ' Sales'
+		dataType: double
+		lineageTag: 9b93d94a-941e-4626-929b-f1238ce8b1c8
+		summarizeBy: sum
+		sourceColumn: " Sales"
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COGS
+		dataType: double
+		lineageTag: 75516451-08a6-42a3-bdbe-e79d66b87008
+		summarizeBy: sum
+		sourceColumn: COGS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Profit
+		dataType: double
+		lineageTag: 3cfcea12-3aa6-4ee7-aa36-6e40dc77a308
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1a703c30-722c-4f18-9549-7d38a412188b
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Month Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: d90b6839-5cd7-4a8b-9b66-095785b57aab
+		summarizeBy: sum
+		sourceColumn: Month Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: 797b0b47-a2a0-4d24-8874-e25f31ec9bc6
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: b9c283a6-35ff-40d1-b6e4-3bc9ea8a28fc
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Custom Cluster' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    Financials[Country] = "Germany" && Financials[Product] = "Carretera", "G Carretera",
+			    Financials[Country] IN {"United States", "Mexico"}, "Non europei",
+			    Financials[Country] = "France" && Financials[Product] = "Carretera", "F Carretera",
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 1dd2f3d7-966b-4148-9bf2-b10b310a9dee
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Discount =
+			
+			SWITCH(
+			    TRUE(),
+			    Financials[Discount Band] IN {"Low", "Medium", "High"}, "Discount Present",
+			    Financials[Discount Band] = "None", "Discount not applied",
+			    BLANK()
+			)
+		lineageTag: f788bd43-bb52-4de5-a691-d60d146be888
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column SM =
+			
+			IF(
+			    Financials[Segment] <> "Small Business",
+			    "No Small Business",
+			    BLANK()
+			)
+		lineageTag: 2f5932b0-f97f-4e79-88bf-4e01745f5830
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition financials-85555e30-7f1f-49f9-bfeb-40a6410894f3 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\giagreco\Desktop\Financial Sample.xlsx"), null, true),
+				    financials_Table = Source{[Item="financials",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(financials_Table,{{"Segment", type text}, {"Country", type text}, {"Product", type text}, {"Discount Band", type text}, {"Units Sold", Int64.Type}, {"Manufacturing Price", Int64.Type}, {"Sale Price", Int64.Type}, {"Gross Sales", type number}, {"Discounts", type number}, {" Sales", type number}, {"COGS", type number}, {"Profit", type number}, {"Date", type date}, {"Month Number", Int64.Type}, {"Month Name", type text}, {"Year", Int64.Type}}),
+				    #"Uppercased Text" = Table.TransformColumns(#"Changed Type",{{"Segment", Text.Upper, type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Uppercased Text",{{"Month Name", "Month"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Product] <> "Montana"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

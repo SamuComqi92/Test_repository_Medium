@@ -1,0 +1,65 @@
+table Segment_Extended
+	lineageTag: 8c4d30b4-696e-4380-967e-92bb2596d81b
+
+	measure Profit_WithTotal =
+			
+			VAR SelectedSegment = SELECTEDVALUE(Segment_Extended[Segment])
+			VAR IsTotalColumn = SelectedSegment = "TOTALE"
+			
+			RETURN
+			IF(
+			    IsTotalColumn,
+			    CALCULATE(
+			        SUM(financials[Profit]),
+			        ALL(financials[Segment])
+			    ),
+			    CALCULATE(
+			        SUM(financials[Profit]),
+			        TREATAS(
+			            VALUES(Segment_Extended[Segment]),
+			            financials[Segment]
+			        )
+			    )
+			)
+		lineageTag: a085f0b8-2f16-4928-b8a6-5d46f8b4d8be
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Segment
+		lineageTag: 980f567d-894e-4bb7-90fa-2514b89a655f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Segment]
+		sortByColumn: SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		formatString: 0
+		lineageTag: 9cb6ef83-de9e-4970-8261-cea0a951016e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [SortOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Segment_Extended = calculated
+		mode: import
+		source = ```
+				
+				VAR SegmentiOriginali = 
+				    ADDCOLUMNS(
+				        DISTINCT(financials[Segment]),
+				        "SortOrder", 1
+				    )
+				VAR RigaTotale = 
+				    ROW(
+				        "Segment", "TOTALE",
+				        "SortOrder", 0
+				    )
+				RETURN
+				    UNION(RigaTotale, SegmentiOriginali)
+				```
+
+	annotation PBI_Id = 46677bf4c4fa4a659cdc03f1f59db578
+

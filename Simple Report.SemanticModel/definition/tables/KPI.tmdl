@@ -1,0 +1,49 @@
+table KPI
+	lineageTag: 15625933-20cb-43b1-9cb2-2839e789031b
+
+	column KPI
+		lineageTag: c252f093-ae20-406e-a9c6-03ff6e572282
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Ordine di KPI'
+
+		relatedColumnDetails
+			groupByColumn: 'Campi di KPI'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Campi di KPI'
+		isHidden
+		lineageTag: 161208e1-c12b-4736-a48a-48a39e5af4a0
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Ordine di KPI'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordine di KPI'
+		isHidden
+		formatString: 0
+		lineageTag: 1263992a-c031-48db-beee-69886d579981
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition KPI = calculated
+		mode: import
+		source =
+				{
+				    ("Total profit", NAMEOF('financials'[Total profit]), 0),
+				    ("Total Sales", NAMEOF('financials'[Total Sales]), 1),
+				    ("Total COGS", NAMEOF('financials'[Total COGS]), 2)
+				}
+
+	annotation PBI_Id = 09fcf8b49baa454a90f9300f511fe0a2
+

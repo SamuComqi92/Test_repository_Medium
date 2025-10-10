@@ -1,0 +1,49 @@
+table Parametro3
+	lineageTag: 6939fa2c-660d-43eb-b543-2535851ba505
+
+	column Parametro_3
+		lineageTag: e190f8cf-9e28-44eb-acb1-62bd2f065721
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Ordine di Parametro'
+
+		relatedColumnDetails
+			groupByColumn: 'Campi di Parametro'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Campi di Parametro'
+		isHidden
+		lineageTag: 2a02c0e8-a76d-4eb3-8d87-34d18bb86236
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Ordine di Parametro'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordine di Parametro'
+		isHidden
+		formatString: 0
+		lineageTag: 1fb854c8-c2d7-4d7a-9fbc-0994916c05fa
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parametro3 = calculated
+		mode: import
+		source =
+				{
+				    ("Country", NAMEOF('financials'[Country]), 0),
+				    ("Product", NAMEOF('financials'[Product]), 1),
+				    ("Segment", NAMEOF('financials'[Segment]), 2)
+				}
+
+	annotation PBI_Id = 53bd049dd6074c6c81014a34995988a2
+

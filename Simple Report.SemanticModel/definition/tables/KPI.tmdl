@@ -42,7 +42,7 @@ table KPI
 				{
 				    ("Total profit", NAMEOF('financials'[Total profit]), 0),
 				    ("Total Sales", NAMEOF('financials'[Total Sales]), 1),
-				    ("Total COGS", NAMEOF('financials'[Total COGS]), 2)
+				    ("Total COGS", NAMEOF('financials'[Total COGS]), 3)
 				}
 
 	annotation PBI_Id = 09fcf8b49baa454a90f9300f511fe0a2

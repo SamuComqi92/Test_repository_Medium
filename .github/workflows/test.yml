@@ -1,7 +1,7 @@
 name: Simple Greeting Workflow 📝
 
 on:
-  pull-request:
+  pull_request:
     branches: [ main ] # Trigger on a push to the main branch
 
 jobs:

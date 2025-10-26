@@ -22,6 +22,9 @@ table financials
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure New_measure = "dummy measure"
+		lineageTag: 3e3c48df-fe98-474a-b294-ac6e2965329c
+
 	column Segment
 		dataType: string
 		lineageTag: 7ecc32b2-0675-401f-b5ff-ef6c79f992c0

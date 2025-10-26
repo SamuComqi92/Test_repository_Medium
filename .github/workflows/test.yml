@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout repository code
-        uses: actions/checkout@v4 # Action: Checks out your repository under $GITHUB_WORKSPACE
+        uses: actions/checkout@v4 # Action: Checks out your repository under $GITHUB_WORKSPACe
 
       - name: Print a greeting message
         run: echo "Hello, World! 👋 The simple workflow just ran." # Step: Runs a shell command

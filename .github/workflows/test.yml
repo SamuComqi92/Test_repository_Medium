@@ -1,0 +1,16 @@
+name: Simple Greeting Workflow 📝
+
+on:
+  pull_request:
+    branches: [ main ] # Trigger on a push to the main branch
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest # Specify the operating system for the job
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4 # Action: Checks out your repository under $GITHUB_WORKSPACE
+
+      - name: Print a greeting message
+        run: echo "Hello, World! 👋 The simple workflow just ran." # Step: Runs a shell command
